@@ -4,7 +4,6 @@ from .models import Book,Author,Category,User
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-import jwt, datetime
 
 class BooksViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
@@ -37,31 +36,3 @@ class LoginView(APIView):
         
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
-
-        payload = {
-            'id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
-        }
-
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
-        
-        return Response({
-            'token': token
-        })
-
-class UserView(APIView):
-    def get(self, request):
-        token = request.COOKIES.get('token')
-
-        if not token:
-            raise AuthenticationFailed("Unauthorized!")
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed("Unauthorized!")
-
-        user = User.objects.filter(id = payload['id'])
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
