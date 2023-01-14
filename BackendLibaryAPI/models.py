@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -23,4 +24,11 @@ class Book(models.Model):
     author_id = models.ManyToManyField(Author)
     category_id = models.ManyToManyField(Category)
 
+class User(AbstractUser):
+    name = models.CharField(max_length=100)
+    email = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=50)
+    username = None
 
+    USERNAME_FIELD='email'
+    REQUIRED_FIELDS = []
