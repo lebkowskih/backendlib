@@ -8,12 +8,10 @@ class Author(models.Model):
     nationality = models.CharField(max_length=100)
     author_description = models.TextField()
 
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
     category_description = models.TextField()
     
-
 class Book(models.Model):
     title = models.CharField(max_length = 200)
     isbn = models.IntegerField(max_length=13)
@@ -22,7 +20,7 @@ class Book(models.Model):
     book_description = models.TextField()
     language = models.TextField()
     authors = models.ManyToManyField('Author', related_name='books', blank=True)
-    categories = models.ManyToManyField('Category', related_name='categories', blank=True)
+    categories = models.ManyToManyField('Category', related_name='books', blank=True)
 
 class User(AbstractUser):
     name = models.CharField(max_length=100)

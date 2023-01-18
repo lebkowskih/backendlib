@@ -28,10 +28,10 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id','name', 'category_description', 'books')
         extra_kwargs = {'books': {'required': False}}
-
+ 
 class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(many=True, read_only=True)
-    categories = CategorySerializer(many=True, read_only=True)
+    authors = AuthorSerializer(many=True)
+    categories = CategorySerializer(many=True)
     class Meta:
         model = Book
         fields = ('id','title','isbn','date_of_publication','quantity','book_description','authors','categories')
