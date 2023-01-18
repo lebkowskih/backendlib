@@ -21,8 +21,8 @@ class Book(models.Model):
     quantity = models.IntegerField()
     book_description = models.TextField()
     language = models.TextField()
-    author_id = models.ManyToManyField(Author)
-    category_id = models.ManyToManyField(Category)
+    authors = models.ManyToManyField('Author', related_name='books', blank=True)
+    categories = models.ManyToManyField('Category', related_name='categories', blank=True)
 
 class User(AbstractUser):
     name = models.CharField(max_length=100)
