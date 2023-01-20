@@ -20,20 +20,21 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ('id','name', 'surname','birthday','nationality','author_description', 'books')
-        extra_kwargs = {'books': {'required': False}}
+        fields = ('id','name', 'surname','birthday','nationality','author_description')
+        #extra_kwargs = {'books': {'required': True}}
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id','name', 'category_description', 'books')
-        extra_kwargs = {'books': {'required': False}}
+        fields = ('id','name', 'category_description')
+        #extra_kwargs = {'books': {'required': False}}
  
 class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(many=True)
-    categories = CategorySerializer(many=True)
+    #authors = AuthorSerializer()
+    #categories = CategorySerializer()
     class Meta:
         model = Book
-        fields = ('id','title','isbn','date_of_publication','quantity','book_description','authors','categories')
-        extra_kwargs = {'authors': {'required': True} ,'categories':{'required': True}}
+        fields = ('id','title','isbn','date_of_publication','quantity','book_description','language','authors','categories')
+        ordering = ['name']
+        # extra_kwargs = {'authors': {'required': True} ,'categories':{'required': True}}
 
