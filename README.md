@@ -22,6 +22,7 @@ oraz domyślnym system zarządzania pakietami pip.
  - pip install django
  - pip install djangorestframework
  - pip install django-cors-headers
+ - pip install djangorestframework-simplejwt
  - python manage.py makemigrations
  - python manage.py migrate
  - python manage.py runserver
